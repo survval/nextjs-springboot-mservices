@@ -1,0 +1,19 @@
+
+spring:
+  application.name: product-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/products
+    username: produser
+    password: prodpass
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/demo-realm
+server:
+  port: 8081
