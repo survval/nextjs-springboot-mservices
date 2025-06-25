@@ -1,0 +1,8 @@
+spring:
+  profiles: local
+
+  cloud.config.server:
+    # use local native file system repo if ENV var not set
+    native.search-locations: ${CONFIG_REPO_URI:file:../config-repo}
+
+  eureka.client.enabled: false        # run without Eureka while coding

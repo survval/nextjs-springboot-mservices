@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true            # build routes from Eureka names
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Stage-specific value comes from the profile files or ENV var
+          issuer-uri: ${SECURITY_OAUTH2_ISSUER_URI:}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+logging:
+  level:
+    root: INFO

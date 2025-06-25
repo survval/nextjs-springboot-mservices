@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  application.name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true          # auto-build routes from Eureka names
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://keycloak:8080/realms/demo-realm  # Keycloak realm

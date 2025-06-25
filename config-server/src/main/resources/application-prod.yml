@@ -1,0 +1,8 @@
+spring:
+  profiles: test
+
+  cloud.config.server:
+    native.search-locations: ${CONFIG_REPO_URI:file:/tmp/config-repo}
+
+eureka.client.enabled: false          # faster Testcontainers boot
+server.port: 0                        # random port

@@ -1,0 +1,7 @@
+spring:
+  profiles: dev
+
+  cloud.config.server:
+    native.search-locations: ${CONFIG_REPO_URI:file:/opt/config-repo}
+
+eureka.client.service-url.defaultZone: ${EUREKA_URL}

@@ -1,0 +1,9 @@
+spring:
+  profiles: test
+
+server.port: 0        # random port for parallel tests
+
+eureka:
+  client.register-with-eureka: false
+  client.fetch-registry: false
+  instance.hostname: localhost

@@ -1,0 +1,16 @@
+spring:
+  profiles: test
+
+  # Disable Eureka during unit/integration tests
+  eureka.client.enabled: false
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/demo-realm
+
+server:
+  port: 0            # random port for parallel test runs
+
+logging.level.root: WARN
