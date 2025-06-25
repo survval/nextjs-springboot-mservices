@@ -1,0 +1,22 @@
+# Test environment configuration
+spring:
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:postgres}:${DB_PORT:5432}/${DB_NAME:tenant_registry}
+    username: ${DB_USERNAME:?}
+    password: ${DB_PASSWORD:?}
+  liquibase:
+    contexts: test
+
+# Keycloak configuration for test
+keycloak:
+  server-url: ${KEYCLOAK_URL:?}
+  admin-username: ${KC_ADMIN_USERNAME:?}
+  admin-password: ${KC_ADMIN_PASSWORD:?}
+  default-client-secret: ${KC_CLIENT_SECRET:?}
+
+# Logging configuration for test
+logging:
+  level:
+    root: WARN
+    com.example: INFO
+    org.springframework.security: WARN

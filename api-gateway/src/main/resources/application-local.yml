@@ -1,17 +1,21 @@
 spring:
-  profiles: dev
+  profiles: local
 
   security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://keycloak:8080/realms/demo-realm
+    oauth2.resourceserver.jwt.issuer-uri: ${SECURITY_OAUTH2_ISSUER_URI:http://localhost:8088/realms/demo-realm}
 
+  cloud:
+    gateway:
+      discovery.locator.enabled: true
   eureka:
-    client:
-      service-url:
-        defaultZone: http://eureka-server:8761/eureka
+    client.service-url.defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
 
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
+  datasource:
+    url: ${JDBC_URL:jdbc:postgresql://localhost:5432/products}
+    username: ${JDBC_USER:produser}
+    password: ${JDBC_PASS:prodpass}
+
+server.port: 8080
+
+logging.level:
+  org.springframework.cloud.gateway: DEBUG

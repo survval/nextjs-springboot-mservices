@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.28.xsd">
+
+    <changeSet id="01-create-tenants-table" author="system">
+        <createTable tableName="tenants">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="identifier" type="varchar(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="contact_email" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean" defaultValueBoolean="true">
+                <constraints nullable="false"/>
+            </column>
+            <column name="keycloak_realm" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="db_schema" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="primary_color" type="varchar(10)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="logo_url" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+            <column name="created_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="updated_at" type="timestamp" defaultValueComputed="CURRENT_TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
+        <createIndex indexName="idx_tenants_identifier" tableName="tenants">
+            <column name="identifier"/>
+        </createIndex>
+        
+        <createIndex indexName="idx_tenants_keycloak_realm" tableName="tenants">
+            <column name="keycloak_realm"/>
+        </createIndex>
+        
+        <createIndex indexName="idx_tenants_db_schema" tableName="tenants">
+            <column name="db_schema"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

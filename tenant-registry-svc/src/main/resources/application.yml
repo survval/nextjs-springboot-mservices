@@ -1,0 +1,65 @@
+# Common configuration shared by all profiles
+spring:
+  application:
+    name: tenant-registry-svc
+  profiles:
+    active: local
+    group:
+      local: common
+      dev: common
+      test: common
+      prod: common
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/realms/${KEYCLOAK_REALM:master}
+
+# Server configuration
+server:
+  port: 8081
+  servlet:
+    context-path: /
+  error:
+    include-message: always
+    include-binding-errors: always
+
+# Actuator configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+  info:
+    env:
+      enabled: true
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
+# Keycloak configuration
+keycloak:
+  server-url: ${KEYCLOAK_URL:http://localhost:8080}
+  admin-username: ${KC_ADMIN_USERNAME:admin}
+  admin-password: ${KC_ADMIN_PASSWORD:admin}
+  default-client-id: product-management
+  default-client-secret: ${KC_CLIENT_SECRET:secret}
+  default-admin-role: tenant-admin
+
+# Logging configuration
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+    org.springframework.security: INFO
+    org.keycloak: INFO
+    liquibase: INFO

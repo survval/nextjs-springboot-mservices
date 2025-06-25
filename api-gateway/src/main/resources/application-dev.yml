@@ -1,16 +1,15 @@
 spring:
-  profiles: test
-
-  # Disable Eureka during unit/integration tests
-  eureka.client.enabled: false
+  profiles: dev
 
   security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/realms/demo-realm
+    oauth2.resourceserver.jwt.issuer-uri: ${SECURITY_OAUTH2_ISSUER_URI}
 
-server:
-  port: 0            # random port for parallel test runs
+  cloud.gateway.discovery.locator.enabled: true
+  eureka.client.service-url.defaultZone: ${EUREKA_URL}
 
-logging.level.root: WARN
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USER}
+    password: ${JDBC_PASS}
+
+server.port: ${SERVER_PORT:8080}

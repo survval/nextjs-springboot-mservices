@@ -1,19 +1,20 @@
-server:
-  port: 8080
-
 spring:
-  application.name: api-gateway
+  profiles: prod
 
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true          # auto-build routes from Eureka names
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
+  security.oauth2.resourceserver.jwt.issuer-uri: ${SECURITY_OAUTH2_ISSUER_URI}
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://keycloak:8080/realms/demo-realm  # Keycloak realm
+  cloud.gateway.discovery.locator.enabled: true
+  eureka.client.service-url.defaultZone: ${EUREKA_URL}
+
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USER}
+    password: ${JDBC_PASS}
+
+server.port: ${SERVER_PORT:8080}
+
+logging.level:
+  root: INFO
+  org.springframework.cloud.gateway: INFO
+
+management.endpoints.web.exposure.include: health,info,prometheus

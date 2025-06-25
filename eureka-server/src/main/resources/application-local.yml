@@ -1,10 +1,11 @@
-spring.application.name: eureka-server
+spring:
+  profiles: local
 
-server.port: ${SERVER_PORT:8761}
+server.port: 8761
 
 eureka:
-  instance.hostname: ${EUREKA_HOSTNAME:${HOSTNAME:localhost}}
   client:
-    # Let profile files decide register/fetch
-    register-with-eureka: ${EUREKA_REGISTER:true}
-    fetch-registry: ${EUREKA_FETCH:true}
+    register-with-eureka: false      # standalone
+    fetch-registry: false
+    service-url.defaultZone: http://localhost:8761/eureka
+  instance.hostname: localhost

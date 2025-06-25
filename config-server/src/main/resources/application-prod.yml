@@ -1,8 +1,14 @@
 spring:
-  profiles: test
+  profiles: prod
 
   cloud.config.server:
-    native.search-locations: ${CONFIG_REPO_URI:file:/tmp/config-repo}
+    git:
+      uri: ${CONFIG_REPO_URI}          # e.g. https://github.com/acme/configs
+      username: ${CONFIG_REPO_USER}
+      password: ${CONFIG_REPO_PASS}
+      default-label: main
 
-eureka.client.enabled: false          # faster Testcontainers boot
-server.port: 0                        # random port
+eureka.client.service-url.defaultZone: ${EUREKA_URL}
+server.port: ${SERVER_PORT:8888}
+
+management.endpoints.web.exposure.include: health,info

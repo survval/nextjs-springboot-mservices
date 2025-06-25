@@ -1,25 +1,14 @@
 spring:
-  application:
-    name: api-gateway
+  profiles: test
 
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true            # build routes from Eureka names
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_FIRST
+  eureka.client.enabled: false      # registry not needed in unit tests
 
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          # Stage-specific value comes from the profile files or ENV var
-          issuer-uri: ${SECURITY_OAUTH2_ISSUER_URI:}
+  security.oauth2.resourceserver.jwt.issuer-uri: ${SECURITY_OAUTH2_ISSUER_URI}
 
-server:
-  port: ${SERVER_PORT:8080}
+  datasource:
+    url: ${JDBC_URL}
+    username: ${JDBC_USER}
+    password: ${JDBC_PASS}
 
-logging:
-  level:
-    root: INFO
+server.port: 0   # random free port
+logging.level.root: WARN

@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Silent SSO Check</title>
+  <script>
+    // This page is used by Keycloak to silently check if the user is still authenticated
+    // without causing a full page reload in the parent window
+    parent.postMessage(location.href, location.origin);
+  </script>
+</head>
+<body>
+  <!-- This page intentionally left blank -->
+</body>
+</html>

@@ -1,9 +1,11 @@
 spring:
-  profiles: test
+  profiles: prod
 
-server.port: 0        # random port for parallel tests
+server.port: ${SERVER_PORT:8761}
 
 eureka:
-  client.register-with-eureka: false
-  client.fetch-registry: false
-  instance.hostname: localhost
+  client:
+    register-with-eureka: false      # registry node itself
+    fetch-registry: false
+    service-url.defaultZone: ${EUREKA_DEFAULT_ZONE:https://eureka.prod.svc.cluster.local/eureka}
+  instance.hostname: ${EUREKA_HOSTNAME:eureka-$(HOSTNAME)}

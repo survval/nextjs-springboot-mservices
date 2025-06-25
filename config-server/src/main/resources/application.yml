@@ -1,3 +1,10 @@
-server.port: 8888
-spring.application.name: config-server
-spring.cloud.config.server.git.uri: file:///config-repo
+spring:
+  application.name: config-server
+
+  cloud.config.server:
+    # Default backend overridden per profile
+    uri: ${CONFIG_REPO_URI:}
+
+server.port: ${SERVER_PORT:8888}
+
+eureka.client.service-url.defaultZone: ${EUREKA_URL:}
