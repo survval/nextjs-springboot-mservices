@@ -1,7 +1,7 @@
 
 package com.example.productservice.filter;
 
-import com.example.productservice.domain.QProduct;
+import com.example.productservice.querydsl.QProduct;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.*;
 

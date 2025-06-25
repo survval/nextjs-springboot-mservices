@@ -1,16 +1,12 @@
 package com.example.tenantregistry.mapper;
 
-import org.mapstruct.MapperConfig;
-import org.mapstruct.ReportingPolicy;
-
 /**
- * Central configuration for all MapStruct mappers.
- * <p>
- * This configuration can be shared across all mappers to ensure consistent behavior.
+ * @deprecated Use {@link BaseMapperConfig} instead. This class is kept for backward
+ * compatibility.
  */
-@MapperConfig(
-    componentModel = "spring",
-    unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
-public interface MapperConfig {
+@Deprecated
+public interface MapperConfig extends BaseMapperConfig {
+
+	// This interface extends BaseMapperConfig for backward compatibility
+
 }

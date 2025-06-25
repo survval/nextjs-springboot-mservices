@@ -26,6 +26,7 @@
         <keycloak.version>23.0.0</keycloak.version>
         <postgresql.version>42.7.2</postgresql.version>
         <spring-javaformat.version>0.0.39</spring-javaformat.version>
+        <kafka.version>3.5.1</kafka.version>
     </properties>
 
     <dependencyManagement>
@@ -122,6 +123,16 @@
                     </configuration>
                 </plugin>
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.11.0</version>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <release>${java.version}</release>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>io.spring.javaformat</groupId>
                     <artifactId>spring-javaformat-maven-plugin</artifactId>
                     <version>${spring-javaformat.version}</version>
@@ -141,9 +152,9 @@
     <!-- Microservices modules -->
     <modules>
         <module>tenant-registry-svc</module>
-        <module>product-svc</module>
-        <module>user-admin-svc</module>
-        <module>ui-gateway</module>
-        <module>audit-svc</module>
+        <module>product-service</module>
+        <module>api-gateway</module>
+        <module>eureka-server</module>
+        <module>shared-events</module>
     </modules>
 </project>
