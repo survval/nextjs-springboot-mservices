@@ -11,7 +11,7 @@ spring:
     client.service-url.defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
 
   datasource:
-    url: ${JDBC_URL:jdbc:postgresql://localhost:5432/products}
+    url: ${JDBC_URL:jdbc:postgresql://localhost:5433/products}
     username: ${JDBC_USER:produser}
     password: ${JDBC_PASS:prodpass}
 

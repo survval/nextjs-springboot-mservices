@@ -1,7 +1,7 @@
 # Local development configuration
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/tenant_registry
+    url: jdbc:postgresql://localhost:5433/tenant_registry
     username: postgres
     password: postgres
   jpa:

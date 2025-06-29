@@ -2,11 +2,11 @@
   "realm": "demo-realm",
   "enabled": true,
   "roles": {
-    "realm": {
-      "PRODUCT_ADMIN": {
+    "realm": [
+      {
         "name": "PRODUCT_ADMIN"
       }
-    }
+    ]
   },
   "clients": [
     {
@@ -24,7 +24,8 @@
       "credentials": [
         {
           "type": "password",
-          "value": "test123"
+          "value": "test123",
+          "temporary": false
         }
       ],
       "realmRoles": [

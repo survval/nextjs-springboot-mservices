@@ -3,6 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
+    <!-- Still inherit the parent (for root build) -->
     <parent>
         <groupId>com.example</groupId>
         <artifactId>nextjs-springboot-mservices</artifactId>
@@ -12,12 +13,30 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>eureka-server</artifactId>
+    <version>1.0.0</version>
     <name>Eureka Server</name>
+
+    <!-- Ensure Spring Cloud version aligns if parent is missing -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2025.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -30,9 +49,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <mainClass>com.example.eureka.EurekaServerApplication</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -151,10 +151,12 @@
 
     <!-- Microservices modules -->
     <modules>
+        <module>shared-events</module>
+        <module>config-server</module>
+        <module>eureka-server</module>
         <module>tenant-registry-svc</module>
+        <module>keycloak</module>
         <module>product-service</module>
         <module>api-gateway</module>
-        <module>eureka-server</module>
-        <module>shared-events</module>
     </modules>
 </project>

@@ -3,27 +3,40 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <!-- ──────────────── Parent reference ──────────────── -->
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>com.example</groupId>
         <artifactId>nextjs-springboot-mservices</artifactId>
         <version>1.0.0</version>
-        <!-- path from api-gateway/ up to the root directory -->
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.example</groupId>
     <artifactId>api-gateway</artifactId>
+    <version>1.0.0</version>
     <name>API Gateway</name>
 
-    <!-- Spring Boot will make the module a runnable JAR -->
     <properties>
+        <java.version>17</java.version>
         <spring-boot.repackage.skip>false</spring-boot.repackage.skip>
     </properties>
 
-    <!-- ─────────────── Dependencies ─────────────── -->
+    <!-- Independent build compatibility -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>2025.0.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
-        <!-- Reactive stack + Gateway -->
+        <!-- Reactive Gateway -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
@@ -33,13 +46,13 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-        <!-- Discovery (Eureka client) -->
+        <!-- Eureka Discovery -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
 
-        <!-- JWT validation (Resource Server mode) -->
+        <!-- OIDC Resource Server -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
@@ -49,20 +62,20 @@
             <artifactId>spring-security-oauth2-jose</artifactId>
         </dependency>
 
-        <!-- Monitoring (optional but handy) -->
+        <!-- Monitoring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- Lombok for constructor injection / boilerplate reduction -->
+        <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Unit-testing stack -->
+        <!-- Tests -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -76,16 +89,11 @@
         </dependency>
     </dependencies>
 
-    <!-- ─────────────── Build plugins ─────────────── -->
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <!-- Ensures the jar is executable (java -jar …) -->
-                    <mainClass>com.example.gateway.ApiGatewayApplication</mainClass>
-                </configuration>
             </plugin>
         </plugins>
     </build>

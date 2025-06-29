@@ -1,6 +1,15 @@
-
 version: "3.9"
 services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: products
+      POSTGRES_USER: produser
+      POSTGRES_PASSWORD: prodpass
+    ports:
+      - "5433:5432"
+    restart: on-failure
+
   keycloak:
     image: quay.io/keycloak/keycloak:24.0
     command: ["start-dev", "--import-realm"]
@@ -11,34 +20,57 @@ services:
       - ./keycloak/realm-export.json:/opt/keycloak/data/import/realm-export.json
     ports:
       - "8088:8080"
+    restart: on-failure
 
   eureka-server:
     build: ./eureka-server
-    ports: ["8761:8761"]
+    ports:
+      - "8761:8761"
+    restart: on-failure
 
   config-server:
     build: ./config-server
-    ports: ["8888:8888"]
-    depends_on: [eureka-server]
-
-  api-gateway:
-    build: ./api-gateway
-    ports: ["8080:8080"]
-    depends_on: [eureka-server, keycloak]
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka-server
+    restart: on-failure
 
   product-service:
     build: ./product-service
     environment:
       SPRING_PROFILES_ACTIVE: docker
-    ports: ["8081:8081"]
-    depends_on: [postgres, eureka-server, keycloak]
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+      - eureka-server
+      - keycloak
+      - config-server
+    restart: on-failure
 
-  postgres:
-    image: postgres:16-alpine
+
+  tenant-registry-svc:
+    build: ./tenant-registry-svc
     environment:
-      POSTGRES_DB: products
-      POSTGRES_USER: produser
-      POSTGRES_PASSWORD: prodpass
-    ports: ["5432:5432"]
+      SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8082:8082"
+    depends_on:
+      - postgres
+      - keycloak
+      - eureka-server
+      - config-server
+    restart: on-failure
 
-  # elk stack omitted for brevity
+
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+      - keycloak
+      - config-server
+      - product-service
+    restart: on-failure
